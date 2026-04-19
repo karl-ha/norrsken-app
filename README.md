@@ -19,7 +19,7 @@
 - användare kan i realtid rapportera vad det ser, vilket även andra användare kan se
 - modernt användargränssnitt
 - norrskens-prognos? (vet inte om det är möjligt)
-- 
+  
 ## API
 
 Norrsken: Auroras.live API
