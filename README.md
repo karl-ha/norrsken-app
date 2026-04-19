@@ -23,5 +23,6 @@
 ## API
 
 Norrsken: Auroras.live API
+
 Väder: OpenWeatherMap API (vädret) + SunCalc (expo bibliotek, för att se om det är tillräckligt mörkt)
 
