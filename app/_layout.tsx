@@ -16,21 +16,25 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const { location, place } = useLocation();
+  const { location, place, searchByPlace } = useLocation();
 
   const latitude = location?.coords.latitude ?? 60.06;
   const longitude = location?.coords.longitude ?? 19.56;
 
   const { kpValue, clouds, chance } = useAuroraData(latitude, longitude);
+  const handleSearch = (cityName: string) => {
+    searchByPlace(cityName);
+  };
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuroraStatus
-       placeName={place ?? "Unknown"}
+        placeName={place ?? "Unknown"}
         kpValue={kpValue}
         clouds={clouds}
         chance={chance}
         darkMode={colorScheme === "dark"}
+        onSearch={handleSearch}
       />
     </ThemeProvider>
   );

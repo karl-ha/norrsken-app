@@ -13,8 +13,8 @@ export function getAuroraChance(
   requiredKp: number,
   cloudCover: number,
 ): string {
-  if (cloudCover > 50) return "För mulet";
-  if (kp >= requiredKp) return "God chans";
-  if (kp >= requiredKp - 1) return "Låg aktivitet";
-  return "Minimal chans";
+  if (cloudCover > 50) return "Too cloudy";
+  if (kp >= requiredKp) return "Good chance";
+  if (kp >= requiredKp - 1) return "Low activity";
+  return "Minimal chance";
 }
