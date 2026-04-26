@@ -5,9 +5,16 @@ type Props = {
   clouds: number | null;
   chance: string;
   darkMode: boolean;
+  placeName: string | null;
 };
 
-export function AuroraStatus({ kpValue, clouds, chance, darkMode }: Props) {
+export function AuroraStatus({
+  kpValue,
+  clouds,
+  chance,
+  darkMode,
+  placeName,
+}: Props) {
   return (
     <View
       style={{
@@ -16,6 +23,7 @@ export function AuroraStatus({ kpValue, clouds, chance, darkMode }: Props) {
         alignItems: "center",
       }}
     >
+      <Text>{placeName ?? "..."}</Text>
       <Text>Kp {kpValue?.toFixed(1) ?? "..."}</Text>
       <Text>{chance}</Text>
       <Text>Molnighet: {clouds !== null ? `${clouds}%` : "..."}</Text>

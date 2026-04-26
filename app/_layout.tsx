@@ -1,4 +1,5 @@
 import { AuroraStatus } from "@/components/ui/aurora-status";
+import { useLocation } from "@/hooks/get-location";
 import { useAuroraData } from "@/hooks/use-aurora-data";
 import {
   DarkTheme,
@@ -15,12 +16,17 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const { location, place } = useLocation();
 
-  const { kpValue, clouds, chance } = useAuroraData(60.06, 19.56);
+  const latitude = location?.coords.latitude ?? 60.06;
+  const longitude = location?.coords.longitude ?? 19.56;
+
+  const { kpValue, clouds, chance } = useAuroraData(latitude, longitude);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuroraStatus
+       placeName={place ?? "Unknown"}
         kpValue={kpValue}
         clouds={clouds}
         chance={chance}
