@@ -2,11 +2,11 @@
 
 ## Ska-krav
 
-- realtidsdata för norrsken
-- realtidsdata för väder (åtminstone molnighet)
-- användarens position
-- kunna ha en eller flera platser sparade
-- kunna bestämma sannolikheten för att se norrsken
+- realtidsdata för norrsken (fixat, dock inte realtid)
+- realtidsdata för väder,åtminstone molnighet (fixat, återigen dock inte realtid)
+- användarens position (fixat)
+- kunna ha en eller flera platser sparade (delvis, kan söka plats men inte spara)
+- kunna bestämma sannolikheten för att se norrsken (fixat)
 - pushnotiser
 
 ## Bör-krav
@@ -22,7 +22,7 @@
   
 ## API
 
-Norrsken: Auroras.live API
+Norrsken: NOAA
 
-Väder: OpenWeatherMap API (vädret) + SunCalc (expo bibliotek, för att se om det är tillräckligt mörkt)
+Väder: open-meteo
 
