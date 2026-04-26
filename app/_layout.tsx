@@ -3,8 +3,6 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import "react-native-reanimated";
@@ -19,15 +17,15 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [kpValue, setKpValue] = useState<number | null>(null);
   const [chance, setChance] = useState<string>("");
+  const [clouds, setClouds] = useState<number | null>(null);
 
   useEffect(() => {
-    async function fetchAuroraData() {
+    async function fetchData() {
       try {
-        const response = await fetch(
+        const kpResponse = await fetch(
           "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json",
         );
-
-        const data = await response.json();
+        const data = await kpResponse.json();
 
         const lastEntry = data[data.length - 1];
         console.log("LAST ENTRY:", lastEntry);
@@ -36,30 +34,33 @@ export default function RootLayout() {
 
         setKpValue(rawKp);
 
-        if (rawKp >= 5) {
-          setChance("Mycket god chans");
-        } else if (rawKp >= 3.5) {
-          setChance("Goda chanser");
-        } else if (rawKp >= 2) {
-          setChance("Låg aktivitet");
-        } else {
-          setChance("Minimal chans");
-        }
+        if (rawKp >= 5) setChance("Mycket god chans");
+        else if (rawKp >= 3.5) setChance("Goda chanser");
+        else if (rawKp >= 2) setChance("Låg aktivitet");
+        else setChance("Minimal chans");
+
+        const weatherResponse = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=60.06&longitude=19.56&current=cloud_cover",
+        );
+        const weatherData = await weatherResponse.json();
+        setClouds(weatherData.current.cloud_cover);
       } catch (error) {
-        console.error("Did not work", error);
+        console.error("Kunde inte hämta data:", error);
       }
     }
-    fetchAuroraData();
+
+    fetchData();
   }, []);
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <View
         style={{
-          paddingTop: 60,
-          paddingBottom: 20,
-          backgroundColor: colorScheme === "dark" ? "#1a1a1a" : "#f0f0f0",
+          flex: 1,
+          justifyContent: "center",
           alignItems: "center",
+          backgroundColor: colorScheme === "dark" ? "#1a1a1a" : "#f0f0f0",
+          paddingBottom: 60,
         }}
       >
         <Text
@@ -92,16 +93,16 @@ export default function RootLayout() {
         >
           {chance}
         </Text>
+        <Text
+          style={{
+            color: colorScheme === "dark" ? "#aaa" : "#888",
+            fontSize: 14,
+            marginTop: 5,
+          }}
+        >
+          ☁️ Molnighet: {clouds !== null ? `${clouds}%` : "..."}
+        </Text>
       </View>
-
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="modal"
-          options={{ presentation: "modal", title: "Info" }}
-        />
-      </Stack>
-      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
