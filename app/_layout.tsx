@@ -26,29 +26,45 @@ export default function RootLayout() {
           "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json",
         );
         const data = await kpResponse.json();
-
         const lastEntry = data[data.length - 1];
-        console.log("LAST ENTRY:", lastEntry);
-
         const rawKp = lastEntry.Kp;
-
         setKpValue(rawKp);
 
-        if (rawKp >= 5) setChance("Mycket god chans");
-        else if (rawKp >= 3.5) setChance("Goda chanser");
-        else if (rawKp >= 2) setChance("Låg aktivitet");
-        else setChance("Minimal chans");
+        const latitude: number = 60.06;
+
+        const getRequiredKp = (latitude: number): number => {
+          if (latitude >= 66) return 1;
+          if (latitude >= 64) return 3;
+          if (latitude >= 60) return 4;
+          if (latitude >= 58) return 5;
+          if (latitude >= 55) return 6;
+          if (latitude >= 52) return 7;
+          return 9;
+        };
+
+        const requiredKp = getRequiredKp(latitude);
 
         const weatherResponse = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=60.06&longitude=19.56&current=cloud_cover",
+          `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=19.56&current=cloud_cover`,
         );
         const weatherData = await weatherResponse.json();
+        setClouds(weatherData.current.cloud_cover);
+
+        if (weatherData.current.cloud_cover > 50) {
+          setChance("För mulet");
+        } else if (rawKp >= requiredKp) {
+          setChance(`God chans)`);
+        } else if (rawKp >= requiredKp - 1) {
+          setChance(`Låg aktivitet`);
+        } else {
+          setChance("Minimal chans");
+        }
+
         setClouds(weatherData.current.cloud_cover);
       } catch (error) {
         console.error("Kunde inte hämta data:", error);
       }
     }
-
     fetchData();
   }, []);
 
@@ -80,6 +96,7 @@ export default function RootLayout() {
                   ? "white"
                   : "black",
             fontSize: 32,
+            paddingTop: 30,
             fontWeight: "bold",
           }}
         >
@@ -88,7 +105,9 @@ export default function RootLayout() {
         <Text
           style={{
             color: colorScheme === "dark" ? "#ccc" : "#666",
-            fontSize: 14,
+            fontSize: 35,
+            paddingTop: 30,
+            paddingBottom: 30,
           }}
         >
           {chance}
