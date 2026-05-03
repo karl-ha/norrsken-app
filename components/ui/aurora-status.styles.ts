@@ -1,0 +1,57 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  container: { flex: 1, paddingHorizontal: 20 },
+  searchContainer: { marginTop: 20, marginBottom: 30 },
+  input: {
+    height: 50,
+    borderRadius: 15,
+    paddingHorizontal: 20,
+    fontSize: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  card: {
+    padding: 25,
+    borderRadius: 24,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 5,
+  },
+  placeLabel: {
+    fontSize: 12,
+    fontWeight: "700",
+    letterSpacing: 1.2,
+    marginBottom: 4,
+  },
+  placeName: { fontSize: 28, fontWeight: "bold", marginBottom: 20 },
+  divider: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "rgba(150,150,150,0.1)",
+    marginBottom: 20,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    marginBottom: 25,
+  },
+  statBox: { alignItems: "center" },
+  statValue: { fontSize: 32, fontWeight: "800" },
+  statLabel: { fontSize: 13, marginTop: 4 },
+  chanceBadge: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    width: "100%",
+    alignItems: "center",
+  },
+  chanceText: { fontSize: 16 },
+});
