@@ -22,19 +22,17 @@ export default function RootLayout() {
   const longitude = location?.coords.longitude ?? 19.56;
 
   const { kpValue, clouds, chance } = useAuroraData(latitude, longitude);
-  const handleSearch = (cityName: string) => {
-    searchByPlace(cityName);
-  };
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuroraStatus
-        placeName={place ?? "Unknown"}
+        location={location}
+        placeName={place ?? "Search location"}
         kpValue={kpValue}
         clouds={clouds}
         chance={chance}
         darkMode={colorScheme === "dark"}
-        onSearch={handleSearch}
+        onSearch={searchByPlace}
       />
     </ThemeProvider>
   );

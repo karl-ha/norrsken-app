@@ -1,8 +1,10 @@
+import * as Location from "expo-location";
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
+  location: Location.LocationObject | null;
   kpValue: number | null;
   clouds: number | null;
   chance: string;
