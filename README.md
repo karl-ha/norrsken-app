@@ -1,3 +1,35 @@
+# Sammanfattning
+
+
+## Funktionalitet
+
+App som ger sannolikheten för att se norrsken, utifrån kp index och lokal molnighet.
+
+- data för norrsken (dock inte realtid)
+- data för molnighet (återigen dock inte realtid)
+- användarens position
+- kan söka plats (men inte spara)
+- kan bestämma sannolikheten för att se norrsken
+- karta
+- mörkt användargränsnitt
+
+- API:
+Norrsken: [NOAA](https://www.ncei.noaa.gov/)
+Väder: [open-meteo
+](https://open-meteo.com/)
+
+## Avgränsningar
+
+Saknas pushnotiser, kan inte spara en eller flera platser, samt diverse nice-to-have saker som t.ex. norrskens-prognos.
+  
+## AI-användning
+
+- förklara hur funktionalitet kan implementeras i kod
+- begreppsdefinition av  norrskens- och molnighetsdatan, samt hur den kunde användas 
+- felsökning av kod
+- stylingkoden, t.ex. styles, är AI-genererad och finjusterad i efterhand
+
+
 # Kravspecifikationer
 
 ## Ska-krav
@@ -25,4 +57,3 @@
 Norrsken: NOAA
 
 Väder: open-meteo
-
